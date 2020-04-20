@@ -7,6 +7,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  collapsed = true;
+
   @Output() featureSelected = new EventEmitter<string>();
 
   constructor() { }
