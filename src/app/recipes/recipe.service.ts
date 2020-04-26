@@ -10,14 +10,35 @@ export class RecipeService {
 
   recipes: Recipe[] = [
     {
-      name: 'A test recipe',
-      description: 'This is a simply test',
-      imagePath: 'https://whatsinthepan.com/wp-content/uploads/2017/10/23910864668_bc8b10eb2a_c.jpg',
+      name: 'Tasty Schnitzel',
+      description: 'A super tasty Schnitzel - just awesome!',
+      // tslint:disable-next-line:max-line-length
+      imagePath: 'https://lh3.googleusercontent.com/proxy/FjDChhwKqNYOM9QZSIAs7ZVrXDN91UD4_K7B3kMRp4A5ZCgX8CGrDi98ebfjXDPYcL-iHeRGv12E8kEOivzPZfJFoyXzUbNi6cYmKe2mqjyFpyNLfqkPUuIM9v04blNo253HBNjcXA_dAzwwkQnIwiryAoSh69SV94A6uh0pnXHOAGRMVy7Eppc',
+      ingredients: [
+        {
+          name: 'Meat',
+          amount: 1,
+        },
+        {
+          name: 'French Fries',
+          amount: 20,
+        }
+      ],
     },
     {
-      name: 'Second test recipe',
-      description: 'This second simply test recipe',
-      imagePath: 'https://www.skinnytaste.com/wp-content/uploads/2009/02/turkey-meatloaf-8.jpg',
+      name: 'Big Fat Burger',
+      description: 'What else you need to say?',
+      imagePath: 'https://images-na.ssl-images-amazon.com/images/I/71WZQEddn4L._SL1500_.jpg',
+      ingredients: [
+        {
+          name: 'Buns',
+          amount: 2,
+        },
+        {
+          name: 'Meat',
+          amount: 1,
+        },
+      ],
     }
   ];
 
