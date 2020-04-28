@@ -15,7 +15,7 @@ export class RecipeService {
       name: 'Tasty Schnitzel',
       description: 'A super tasty Schnitzel - just awesome!',
       // tslint:disable-next-line:max-line-length
-      imagePath: 'https://lh3.googleusercontent.com/proxy/FjDChhwKqNYOM9QZSIAs7ZVrXDN91UD4_K7B3kMRp4A5ZCgX8CGrDi98ebfjXDPYcL-iHeRGv12E8kEOivzPZfJFoyXzUbNi6cYmKe2mqjyFpyNLfqkPUuIM9v04blNo253HBNjcXA_dAzwwkQnIwiryAoSh69SV94A6uh0pnXHOAGRMVy7Eppc',
+      imagePath: 'https://media-cdn.tripadvisor.com/media/photo-s/11/bb/4c/46/chicken-schnitzel-fries.jpg',
       ingredients: [
         {
           name: 'Meat',
