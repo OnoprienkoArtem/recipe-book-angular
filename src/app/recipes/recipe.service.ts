@@ -1,20 +1,18 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  recipeSelected = new EventEmitter<Recipe>();
-
   recipes: Recipe[] = [
     {
       name: 'Tasty Schnitzel',
       description: 'A super tasty Schnitzel - just awesome!',
-      // tslint:disable-next-line:max-line-length
       imagePath: 'https://media-cdn.tripadvisor.com/media/photo-s/11/bb/4c/46/chicken-schnitzel-fries.jpg',
       ingredients: [
         {
