@@ -15,7 +15,10 @@ export class DataStorageService {
   ) { }
 
   storeRecipes() {
-    const recipe = this.recipeService.getRecipes();
-    return this.http.put(`${this.url}`, recipe).subscribe();
+    const recipes = this.recipeService.getRecipes();
+
+    return this.http.put(`${this.url}recipes.json`, recipes).subscribe(res => {
+      console.log(res);
+    });
   }
 }
