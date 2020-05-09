@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 interface AuthResponseData {
   kind: string;
@@ -16,6 +17,8 @@ interface AuthResponseData {
 export class AuthService {
 
   apiKey = '';
+
+  isLoader$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
