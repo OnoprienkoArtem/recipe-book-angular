@@ -20,7 +20,7 @@ export interface AuthResponseData {
 export class AuthService {
 
   apiKey = '';
-  user$ = new Subject<User>();
+  user$ = new BehaviorSubject<User>(null);
   isLoader$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
