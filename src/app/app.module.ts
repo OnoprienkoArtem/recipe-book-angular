@@ -43,7 +43,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [ {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService} ],
+  providers: [ {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
