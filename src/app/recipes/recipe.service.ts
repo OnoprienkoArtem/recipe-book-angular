@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
@@ -24,7 +23,7 @@ export class RecipeService {
   //         amount: 1,
   //       },
   //       {
-  //         name: 'French Fries',
+  //         name: 'French Fries',`
   //         amount: 20,
   //       }
   //     ],
@@ -49,7 +48,6 @@ export class RecipeService {
   recipes: Recipe[] = [];
 
   constructor(
-    private shoppingListService: ShoppingListService,
     private store: Store<{shoppingList: {ingredients: Ingredient[]}}>,
   ) { }
 
