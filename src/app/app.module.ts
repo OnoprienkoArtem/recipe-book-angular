@@ -19,8 +19,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as fromApp from './store/app.reducer';
 
 
 @NgModule({
@@ -45,7 +45,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    StoreModule.forRoot(fromApp.appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
