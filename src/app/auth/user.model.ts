@@ -5,7 +5,7 @@ export class User {
     // tslint:disable-next-line:variable-name
     public _token: string,
     // tslint:disable-next-line:variable-name
-    public _tokenExpirationDate: Date,
+    public _tokenExpirationDate: Date | string,
   ) {
   }
 
