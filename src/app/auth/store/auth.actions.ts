@@ -11,7 +11,7 @@ export class Login implements Action {
       email: string;
       userId: string;
       token: string;
-      expirationDate: string;
+      expirationDate: Date | string;
     }
   ) {}
 }
