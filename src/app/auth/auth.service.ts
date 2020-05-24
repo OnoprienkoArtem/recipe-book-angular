@@ -24,7 +24,7 @@ export interface AuthResponseData {
 export class AuthService {
 
   apiKey = '';
-  user$ = new BehaviorSubject<User>(null);
+  // user$ = new BehaviorSubject<User>(null);
   isLoader$ = new BehaviorSubject<boolean>(false);
 
   private tokenExpirationTimer: any;
