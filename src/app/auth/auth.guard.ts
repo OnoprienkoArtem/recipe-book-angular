@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {map, take} from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 
 @Injectable({
