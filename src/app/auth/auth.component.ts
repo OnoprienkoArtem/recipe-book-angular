@@ -17,6 +17,7 @@ import { AuthResponseData, AuthService } from './auth.service';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   error: string = null;
+  isloading = false;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,10 @@ export class AuthComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.store.select('auth').subscribe(authState => {
+      this.isloading = authState.loading;
+      this.error = authState.authError;
+    });
   }
 
   onSwitchMode() {
@@ -50,18 +55,20 @@ export class AuthComponent implements OnInit {
       authObs = this.authService.signUp(email, password);
     }
 
-    authObs.subscribe(
-      res => {
-        console.log(res);
-        this.authService.isLoader$.next(false);
-        this.router.navigate(['/recipes']);
-      },
-      errorMessage => {
-        this.error = errorMessage;
-        this.authService.isLoader$.next(false);
-        console.log(errorMessage);
-      }
-    );
+
+
+    // authObs.subscribe(
+    //   res => {
+    //     console.log(res);
+    //     this.authService.isLoader$.next(false);
+    //     this.router.navigate(['/recipes']);
+    //   },
+    //   errorMessage => {
+    //     this.error = errorMessage;
+    //     this.authService.isLoader$.next(false);
+    //     console.log(errorMessage);
+    //   }
+    // );
 
     form.reset();
   }
