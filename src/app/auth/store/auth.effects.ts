@@ -4,7 +4,7 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
 import { AuthResponseData } from '../auth.service';
-import { of } from 'rxjs';
+import {of, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -34,8 +34,26 @@ export class AuthEffects {
             }
           );
         }),
-        catchError(error => {
-          return of();
+        catchError(errorRes => {
+          let errorMessage = 'An unknown error occurred!';
+
+          if (!errorRes.error || !errorRes.error.error) {
+            return of(new AuthActions.LoginFail(errorMessage));
+          }
+
+          switch (errorRes.error.error.message) {
+            case 'EMAIL_EXISTS':
+              errorMessage = 'This email exists already.';
+              break;
+            case 'EMAIL_NOT_FOUND':
+              errorMessage = 'This email does not exist.';
+              break;
+            case 'INVALID_PASSWORD':
+              errorMessage = 'This password is not correct.';
+              break;
+          }
+
+          return of(new AuthActions.LoginFail(errorMessage));
         }),
       );
     }),
