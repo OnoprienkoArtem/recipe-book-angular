@@ -5,7 +5,22 @@ import { HttpClient } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
 import { AuthResponseData } from '../auth.service';
 import {of, throwError} from 'rxjs';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+
+const handleAuthentication = (email: string, userId: string, token: string, expiresIn: number) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  return new AuthActions.AuthenticateSuccess({
+      email,
+      userId,
+      token,
+      expirationDate,
+    }
+  );
+};
+
+const handleError = () => {
+
+};
 
 @Injectable()
 export class AuthEffects {
@@ -25,14 +40,7 @@ export class AuthEffects {
         }
       ).pipe(
         map(resData => {
-          const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-          return new AuthActions.AuthenticateSuccess({
-              email: resData.email,
-              userId: resData.localId,
-              token: resData.idToken,
-              expirationDate,
-            }
-          );
+          handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
         }),
         catchError(errorRes => {
           let errorMessage = 'An unknown error occurred!';
