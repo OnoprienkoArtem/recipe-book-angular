@@ -55,23 +55,9 @@ export class AuthComponent implements OnInit {
       // authObs = this.authService.login(email, password);
       this.store.dispatch(new AuthActions.LoginStart({email, password}));
     } else {
-      authObs = this.authService.signUp(email, password);
+      // authObs = this.authService.signUp(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({email, password}));
     }
-
-
-
-    // authObs.subscribe(
-    //   res => {
-    //     console.log(res);
-    //     this.authService.isLoader$.next(false);
-    //     this.router.navigate(['/recipes']);
-    //   },
-    //   errorMessage => {
-    //     this.error = errorMessage;
-    //     this.authService.isLoader$.next(false);
-    //     console.log(errorMessage);
-    //   }
-    // );
 
     form.reset();
   }

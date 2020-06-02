@@ -18,8 +18,26 @@ const handleAuthentication = (email: string, userId: string, token: string, expi
   );
 };
 
-const handleError = () => {
+const handleError = (errorRes: any) => {
+  let errorMessage = 'An unknown error occurred!';
 
+  if (!errorRes.error || !errorRes.error.error) {
+    return of(new AuthActions.AuthenticateFail(errorMessage));
+  }
+
+  switch (errorRes.error.error.message) {
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email exists already.';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'This email does not exist.';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'This password is not correct.';
+      break;
+  }
+
+  return of(new AuthActions.AuthenticateFail(errorMessage));
 };
 
 @Injectable()
@@ -40,28 +58,10 @@ export class AuthEffects {
         }
       ).pipe(
         map(resData => {
-          handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+          return handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
         }),
         catchError(errorRes => {
-          let errorMessage = 'An unknown error occurred!';
-
-          if (!errorRes.error || !errorRes.error.error) {
-            return of(new AuthActions.AuthenticateFail(errorMessage));
-          }
-
-          switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errorMessage = 'This email exists already.';
-              break;
-            case 'EMAIL_NOT_FOUND':
-              errorMessage = 'This email does not exist.';
-              break;
-            case 'INVALID_PASSWORD':
-              errorMessage = 'This password is not correct.';
-              break;
-          }
-
-          return of(new AuthActions.AuthenticateFail(errorMessage));
+          return handleError(errorRes);
         }),
       );
     })
@@ -80,35 +80,10 @@ export class AuthEffects {
         }
       ).pipe(
         map(resData => {
-          const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-          return new AuthActions.AuthenticateSuccess({
-              email: resData.email,
-              userId: resData.localId,
-              token: resData.idToken,
-              expirationDate,
-            }
-          );
+          return handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
         }),
         catchError(errorRes => {
-          let errorMessage = 'An unknown error occurred!';
-
-          if (!errorRes.error || !errorRes.error.error) {
-            return of(new AuthActions.AuthenticateFail(errorMessage));
-          }
-
-          switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errorMessage = 'This email exists already.';
-              break;
-            case 'EMAIL_NOT_FOUND':
-              errorMessage = 'This email does not exist.';
-              break;
-            case 'INVALID_PASSWORD':
-              errorMessage = 'This password is not correct.';
-              break;
-          }
-
-          return of(new AuthActions.AuthenticateFail(errorMessage));
+          return handleError(errorRes);
         }),
       );
     }),
