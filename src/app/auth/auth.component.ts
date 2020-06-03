@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -6,16 +6,20 @@ import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
 import { AuthService } from './auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   error: string = null;
   isloading = false;
+
+  private closeSub: Subscription;
+  private storeSub: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -24,13 +28,23 @@ export class AuthComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe(authState => {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isloading = authState.loading;
       this.error = authState.authError;
       if (this.error) {
         // this.showErrorAlert(this.error);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.closeSub) {
+      this.closeSub.unsubscribe();
+    }
+
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 
   onSwitchMode() {
@@ -55,4 +69,6 @@ export class AuthComponent implements OnInit {
 
     form.reset();
   }
+
+
 }
