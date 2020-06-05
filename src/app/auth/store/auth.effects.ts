@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
 import { AuthResponseData } from '../auth.service';
-import {of, throwError} from 'rxjs';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../user.model';
 
 const handleAuthentication = (email: string, userId: string, token: string, expiresIn: number) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  const user = new User(email, userId, token, expirationDate);
+  localStorage.setItem('userData', JSON.stringify(user));
   return new AuthActions.AuthenticateSuccess({
       email,
       userId,
