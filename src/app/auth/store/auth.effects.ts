@@ -98,6 +98,14 @@ export class AuthEffects {
     tap(() => this.router.navigate(['/'])),
   );
 
+  @Effect({ dispatch: false })
+  authLogout = this.actions$.pipe(
+    ofType(AuthActions.LOGOUT),
+    tap(() => {
+      localStorage.removeItem('userData');
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,
