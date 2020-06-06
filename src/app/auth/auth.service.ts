@@ -67,24 +67,24 @@ export class AuthService {
   // }
 
   autoLogin() {
-    const userData: User = JSON.parse(localStorage.getItem('userData'));
-    if (!userData) {
-      return;
-    }
-
-    const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
-
-    if (loadedUser.token) {
-      // this.user$.next(loadedUser);
-      this.store.dispatch(new AuthActions.AuthenticateSuccess({
-        email: loadedUser.email,
-        userId: loadedUser.id,
-        token: loadedUser.token,
-        expirationDate: new Date(userData._tokenExpirationDate),
-      }));
-      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-      this.autoLogout(expirationDuration);
-    }
+    // const userData: User = JSON.parse(localStorage.getItem('userData'));
+    // if (!userData) {
+    //   return;
+    // }
+    //
+    // const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+    //
+    // if (loadedUser.token) {
+    //   // this.user$.next(loadedUser);
+    //   this.store.dispatch(new AuthActions.AuthenticateSuccess({
+    //     email: loadedUser.email,
+    //     userId: loadedUser.id,
+    //     token: loadedUser.token,
+    //     expirationDate: new Date(userData._tokenExpirationDate),
+    //   }));
+    //   const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+    //   this.autoLogout(expirationDuration);
+    // }
   }
 
   logout() {
