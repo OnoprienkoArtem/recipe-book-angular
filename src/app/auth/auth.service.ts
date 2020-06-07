@@ -20,7 +20,8 @@ export interface AuthResponseData {
 export class AuthService {
 
   // apiKey = '';
-  isLoader$ = new BehaviorSubject<boolean>(false);
+
+  // isLoader$ = new BehaviorSubject<boolean>(false);
 
   private tokenExpirationTimer: any;
 
@@ -28,10 +29,17 @@ export class AuthService {
     private store: Store<fromApp.AppState>,
   ) {}
 
-  autoLogout(expirationDuration: number) {
+  setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
+      this.store.dispatch(new AuthActions.Logout());
     }, expirationDuration);
+  }
+
+  clearLogoutTimer() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+      this.tokenExpirationTimer = null;
+    }
   }
 
 }
