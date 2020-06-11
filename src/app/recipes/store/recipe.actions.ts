@@ -9,3 +9,5 @@ export class SetRecipes implements Action {
 
     constructor(public payload: Recipe[]) {}
 }
+
+export type RecipesActions = SetRecipes;
