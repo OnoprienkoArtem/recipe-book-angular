@@ -7,6 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
+import { map } from 'rxjs/operators';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -21,7 +25,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private store: Store<fromApp.AppState>,
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +72,13 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
-      const recipe = this.recipeService.getRecipe(this.id);
+      // const recipe = this.recipeService.getRecipe(this.id);
+      this.store.select('recipes').pipe(map(recipeState => {
+        return recipeState.recipes.find((recipe, index) => {
+          return index === this.id;
+        })
+      }))
+
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
