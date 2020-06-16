@@ -72,29 +72,28 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
-      // const recipe = this.recipeService.getRecipe(this.id);
       this.store.select('recipes').pipe(map(recipeState => {
         return recipeState.recipes.find((recipe, index) => {
           return index === this.id;
         })
-      }))
-
-      recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
-      recipeDescription = recipe.description;
-      if (recipe['ingredients']) {
-        for (const ingredient of recipe.ingredients) {
-          recipeIngredients.push(
-            new FormGroup({
-              name: new FormControl(ingredient.name, Validators.required),
-              amount: new FormControl(ingredient.amount, [
-                Validators.required,
-                Validators.pattern(/^[1-9]+[0-9]*$/)
-              ]),
-            })
-          );
+      })).subscribe(recipe => {
+        recipeName = recipe.name;
+        recipeImagePath = recipe.imagePath;
+        recipeDescription = recipe.description;
+        if (recipe['ingredients']) {
+          for (const ingredient of recipe.ingredients) {
+            recipeIngredients.push(
+              new FormGroup({
+                name: new FormControl(ingredient.name, Validators.required),
+                amount: new FormControl(ingredient.amount, [
+                  Validators.required,
+                  Validators.pattern(/^[1-9]+[0-9]*$/)
+                ]),
+              })
+            );
+          }
         }
-      }
+      })
     }
 
     this.recipeForm = new FormGroup({
