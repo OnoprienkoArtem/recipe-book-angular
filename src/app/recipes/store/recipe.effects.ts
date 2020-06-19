@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, map } from 'rxjs/operators';
 import { Recipe } from '../recipe.model';
@@ -5,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 import * as RecipesActions from './recipe.actions';
 
+@Injectable()
 export class RecipeEffects {
 
     url = '';
