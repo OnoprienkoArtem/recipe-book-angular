@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { take } from 'rxjs/operators';
 import {
   ActivatedRouteSnapshot,
   Resolve,
@@ -23,5 +24,9 @@ export class RecipesResolverService implements Resolve<Recipe[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.store.dispatch(new RecipesActions.FetchRecipes());
+    return this.actions$.pipe(
+      ofType(RecipesActions.SET_RECIPES),
+      take(1),
+    );
   }
 }
