@@ -7,8 +7,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AuthComponent } from './auth/auth.component';
@@ -21,13 +19,12 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { RecipesModule } from './recipes/recipes.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
     AuthComponent,
     LoadingSpinnerComponent,
@@ -39,6 +36,7 @@ import { RecipesModule } from './recipes/recipes.module';
     AppRoutingModule,
     HttpClientModule,
     RecipesModule,
+    ShoppingListModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     StoreDevtoolsModule.instrument({
