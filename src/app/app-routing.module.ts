@@ -8,10 +8,6 @@ const routes: Routes = [
     redirectTo: '/recipes',
     pathMatch: 'full',
   },
-  {
-    path: 'auth',
-    component: AuthComponent,
-  }
 ];
 
 @NgModule({
