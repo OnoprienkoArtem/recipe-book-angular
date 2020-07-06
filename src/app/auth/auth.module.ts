@@ -14,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
         SharedModule,
         RouterModule.forChild([
             {
-                path: 'auth',
+                path: '',
                 component: AuthComponent
             }
         ]),
