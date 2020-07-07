@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import * as AuthActions from './auth/store/auth.actions';
+import { LoggingService } from './logging.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,12 @@ export class AppComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private store: Store<fromApp.AppState>,
+    private loggingService: LoggingService,
   ) {}
 
   ngOnInit() {
     this.store.dispatch(new AuthActions.AutoLogin());
+
+    this.loggingService.printLog('Hello from AppComponent');
   }
 }

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Ingredient } from '../shared/ingredient.model';
 import * as ShoppingListActions from './store/shopping-list.actions';
 import * as fromApp from '../store/app.reducer';
+import { LoggingService } from '../logging.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,10 +18,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromApp.AppState>,
+    private loggingService: LoggingService,
   ) { }
 
   ngOnInit(): void {
     this.ingredients = this.store.select('shoppingList');
+
+    this.loggingService.printLog('Hello from ShoppingListComponent');
     // this.ingredients = this.shoppingListService.getIngredients();
     // this.ingredientsChangedSub = this.shoppingListService.ingredientsChanged.subscribe(
     //   (ingredients: Ingredient[]) => {
