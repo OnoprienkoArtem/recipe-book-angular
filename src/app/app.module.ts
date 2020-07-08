@@ -15,6 +15,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+// import { LoggingService } from './logging.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CoreModule } from './core.module';
     }),
     StoreRouterConnectingModule.forRoot(),
   ],
+  // providers: [LoggingService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
